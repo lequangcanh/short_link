@@ -23,6 +23,10 @@ class Link < ApplicationRecord
     end
   end
 
+  def short_url
+    "#{ENV['APP_DOMAIN']}/#{short_code}"
+  end
+
   private
 
   def set_original_url_hash

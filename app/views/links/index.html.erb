@@ -1,0 +1,39 @@
+<h2>Shorten URL</h2>
+<form id="encode-form">
+  <input type="text" id="encode-url" placeholder="Enter URL" required>
+  <button type="submit">Encode</button>
+</form>
+<div id="encode-result"></div>
+
+<h2>Decode Short Code</h2>
+<form id="decode-form">
+  <input type="text" id="decode-code" placeholder="Enter short code" required>
+  <button type="submit">Decode</button>
+</form>
+<div id="decode-result"></div>
+
+<script>
+document.getElementById('encode-form').onsubmit = async function(e) {
+  e.preventDefault();
+  const url = document.getElementById('encode-url').value;
+  const res = await fetch('/encode', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url })
+  });
+  const data = await res.json();
+  document.getElementById('encode-result').innerText = data.short_url || data.error;
+};
+
+document.getElementById('decode-form').onsubmit = async function(e) {
+  e.preventDefault();
+  const short_code = document.getElementById('decode-code').value;
+  const res = await fetch('/decode', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ short_code })
+  });
+  const data = await res.json();
+  document.getElementById('decode-result').innerText = data.url || data.error;
+};
+</script>

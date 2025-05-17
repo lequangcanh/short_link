@@ -28,6 +28,8 @@ gem "bootsnap", require: false
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem "pry-rails"
+  gem "rspec-rails", "~> 6.0"
+  gem "factory_bot_rails", "~> 6.2"
 end
 
 group :development do
@@ -37,6 +39,5 @@ group :development do
 end
 
 group :test do
-  gem "rspec-rails", "~> 6.0"
   gem "shoulda-matchers", "~> 5.2"
 end

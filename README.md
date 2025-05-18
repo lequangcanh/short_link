@@ -19,6 +19,18 @@
 - `decode`: Receive short code, find it on DB and return original url if it is existing
 - `root: links#index`: it is a HTML page to testing
 
+## How to run
+
+- Pull this code from respository
+- `bundle install` to install dependencies
+- `cp .env.example .env` to create .env file and provide your value for them
+- `rails db:migrate` to migrate DB
+- `rails s` and you can testing the app here
+
+### Unit test
+- Define under folder `spec/`
+- Run `bundle exec rspec` to run all examples
+
 ## Security
 
 - Brute-force: Short codes are at least 6 characters. Apply rate limiting and block IP.

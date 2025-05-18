@@ -11,6 +11,9 @@ class Link < ApplicationRecord
       begin
         find_by(original_url_hash: Digest::SHA256.hexdigest(original_url)) || create(original_url: original_url)
       rescue ActiveRecord::RecordNotUnique
+        # Sometimes, 2 same original_url maybe create at a same time
+        # Or 2 same short_code maybe generate and create at a same time
+        # So we need retry to make sure it works well
         retries += 1
         retry if retries < 5
         raise

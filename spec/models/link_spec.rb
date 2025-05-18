@@ -18,12 +18,12 @@ RSpec.describe Link, type: :model do
       end
 
       context "when the link is created concurrently with the same url" do
+         # disable transaction of rspec to test the concurrency
+         # because in this case we will retry if ActiveRecord::RecordNotUnique is raise
+         # But postgres does not support retry on transaction
         self.use_transactional_tests = false
 
         let(:url) { "https://google.com" }
-
-        before { Link.delete_all }
-        after  { Link.delete_all }
 
         it 'only creates one record when called concurrently with the same url' do
           results = []

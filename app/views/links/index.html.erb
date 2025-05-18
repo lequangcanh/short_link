@@ -5,9 +5,9 @@
 </form>
 <div id="encode-result"></div>
 
-<h2>Decode Short Code</h2>
+<h2>Decode Short URL</h2>
 <form id="decode-form">
-  <input type="text" id="decode-code" placeholder="Enter short code" required>
+  <input type="text" id="decode-short-url" placeholder="Enter short url" required>
   <button type="submit">Decode</button>
 </form>
 <div id="decode-result"></div>
@@ -27,7 +27,8 @@ document.getElementById('encode-form').onsubmit = async function(e) {
 
 document.getElementById('decode-form').onsubmit = async function(e) {
   e.preventDefault();
-  const short_code = document.getElementById('decode-code').value;
+  const short_url = document.getElementById('decode-short-url').value;
+  const short_code = short_url.split('/').pop();
   const res = await fetch('/decode', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

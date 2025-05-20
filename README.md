@@ -17,7 +17,7 @@
 
 - `encode`: Receive url from user input, call the method `find_or_create_new_link` and return shorten url with json format
 - `decode`: Receive short code, find it on DB and return original url if it is existing
-- `root: links#index`: it is a HTML page to testing
+- `root: links#index`: it is a HTML page to testing, it returns the value only, no handle redirect
 
 ## How to run
 
@@ -38,10 +38,14 @@
 - XSS: Only valid http/https URLs are accepted. No user input is rendered as HTML.
 - SQL Injection: All DB access uses ActiveRecord.
 
-## Scale
+## Scaleable (implement later)
 
-- Using cache
-- Sharding DB
+- Use a Load Balancer to handle request
+- Using cache system to reduce DB load data from DB, when a request coming to encode the short code, we will find on cache before load from database
+- If the data becomes large, we can use sharding DB, example sharding by IDs if we use auto increment ID
+- Functionality:
+  - We can set `expire_time` to a `link` record and remove it from DB
+  - We can add table `users` to manage link of registered users
 
 ## Collision
 
